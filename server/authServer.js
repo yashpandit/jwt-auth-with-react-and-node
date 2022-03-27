@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const bcrypt = require('bcrypt');
 const { users, refreshTokens, AUTH_PORT } = require('./constants');
 const { generateAccessToken, generateRefreshToken } = require('./utils/generateTokens');
@@ -7,6 +8,7 @@ const { verifyRefreshToken } = require('./utils/verifyTokens');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/users', (req, res) => {
