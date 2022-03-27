@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/users', (req, res) => {
-  res.json(users);
+  res.json({ data: users });
 });
 
 app.post('/users', async (req, res) => {

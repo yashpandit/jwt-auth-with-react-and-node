@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useRequest from "../../hooks/useRequest";
 import Button from "../Button";
 import Input from "../Input";
 
@@ -11,6 +12,7 @@ const initialState ={
 const Signup = () => {
   const [state, setState] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const request = useRequest();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,15 +33,13 @@ const Signup = () => {
 
     setLoading(true);
 
-    const response = await fetch('http://localhost:4000/users', {
+    await request('users', {
       method: 'POST',
-      body: JSON.stringify({
+      body: {
         name: state.username,
         password: state.password,
-      }),
+      },
     });
-
-    console.log({ response });
 
     setLoading(false);
   };
@@ -78,7 +78,14 @@ const Signup = () => {
           />
           <div className="flex items-center gap-3">
             <Button type="button" onClick={handleReset}>reset</Button>
-            <Button theme="primary" type="submit" disabled={loading} onClick={handleSubmit}>submit</Button>
+            <Button
+              theme="primary"
+              type="submit"
+              disabled={loading}
+              onClick={handleSubmit}
+            >
+              submit
+            </Button>
           </div>
         </form>
       </div>
