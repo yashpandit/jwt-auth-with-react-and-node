@@ -16,4 +16,13 @@ const users = [];
 
 const refreshTokens = [];
 
-module.exports = { PORT, AUTH_PORT, posts, users, refreshTokens };
+const AUTHORIZATION_HEADER = 'authorization';
+
+module.exports = {
+  AUTHORIZATION_HEADER,
+  PORT,
+  AUTH_PORT,
+  posts,
+  users,
+  refreshTokens,
+};

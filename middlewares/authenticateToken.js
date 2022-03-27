@@ -1,8 +1,5 @@
-require('dotenv').config();
-
-const { verifyToken } = require('../utils/verifyToken');
-
-const AUTHORIZATION_HEADER = 'authorization';
+const { verifyAccessToken } = require('../utils/verifyTokens');
+const { AUTHORIZATION_HEADER } = require('../constants');
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers[AUTHORIZATION_HEADER];
@@ -15,9 +12,8 @@ const authenticateToken = (req, res, next) => {
     return res.sendStatus(401);
   }
 
-  verifyToken(
+  verifyAccessToken(
     token,
-    process.env.ACCESS_TOKEN_SECRET,
     (err, user) => {
       if (err) {
         return res.sendStatus(403);

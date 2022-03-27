@@ -1,11 +1,9 @@
-require('dotenv').config();
-
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { users, refreshTokens, AUTH_PORT } = require('./constants');
 const { generateAccessToken, generateRefreshToken } = require('./utils/generateTokens');
 const { generateHashedPassword } = require('./utils/generateHashedPassword');
-const { verifyToken } = require('./utils/verifyToken');
+const { verifyRefreshToken } = require('./utils/verifyTokens');
 
 const app = express();
 
@@ -38,9 +36,8 @@ app.post('/token', (req, res) => {
     return res.sendStatus(403);
   }
 
-  verifyToken(
+  verifyRefreshToken(
     token,
-    process.env.REFRESH_TOKEN_SECRET,
     (err, user) => {
     if (err) {
       return res.sendStatus(403);
