@@ -1,7 +1,7 @@
 const Success = () => {
   return (
     <div>
-      <h1>You are already logged in!</h1>
+      <h1>You are now logged in!</h1>
     </div>
   );
 };

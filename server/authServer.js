@@ -84,4 +84,4 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.listen(AUTH_PORT);
+app.listen(AUTH_PORT, () => console.log(`listening on port ${AUTH_PORT}`));

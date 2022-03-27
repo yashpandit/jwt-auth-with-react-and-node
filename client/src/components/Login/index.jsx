@@ -34,7 +34,7 @@ const Login = () => {
   return (
     <div className="h-full w-full flex items-center flex-col">
       <h1 className="my-6 text-xl text-gray-700">Log In</h1>
-      <div className="flex items-center justify-center border-t border-gray-400 w-full h-full">
+      <div className="flex items-center justify-center border-dashed border-t-2 border-gray-400 w-full h-full">
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
           <Input
             label="username"
@@ -43,6 +43,7 @@ const Login = () => {
             name="username"
             value={state.username}
             onChange={handleChange}
+            required
           />
           <Input
             label="password"
@@ -51,6 +52,7 @@ const Login = () => {
             name="password"
             value={state.password}
             onChange={handleChange}
+            required
           />
           <div className="flex items-center gap-3">
             <Button type="button" onClick={handleReset}>reset</Button>

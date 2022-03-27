@@ -24,19 +24,31 @@ const Signup = () => {
     setState(initialState);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     if (event) {
       event.preventDefault();
     }
 
     setLoading(true);
+
+    const response = await fetch('http://localhost:4000/users', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: state.username,
+        password: state.password,
+      }),
+    });
+
+    console.log({ response });
+
+    setLoading(false);
   };
 
   return (
     <div className="h-full w-full flex items-center flex-col">
       <h1 className="my-6 text-xl text-gray-700">Sign Up</h1>
-      <div className="flex items-center justify-center border-t border-gray-400 w-full h-full">
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      <div className="flex items-center justify-center border-dashed border-t-2 border-gray-400 w-full h-full">
+        <form className="flex flex-col items-center gap-4">
           <Input
             label="username"
             type="text"
@@ -44,6 +56,7 @@ const Signup = () => {
             name="username"
             value={state.username}
             onChange={handleChange}
+            required
           />
           <Input
             label="password"
@@ -52,6 +65,7 @@ const Signup = () => {
             name="password"
             value={state.password}
             onChange={handleChange}
+            required
           />
           <Input
             label="confirm password"
@@ -60,10 +74,11 @@ const Signup = () => {
             name="confirmPassword"
             value={state.confirmPassword}
             onChange={handleChange}
+            required
           />
           <div className="flex items-center gap-3">
             <Button type="button" onClick={handleReset}>reset</Button>
-            <Button theme="primary" type="submit" disabled={loading}>submit</Button>
+            <Button theme="primary" type="submit" disabled={loading} onClick={handleSubmit}>submit</Button>
           </div>
         </form>
       </div>
