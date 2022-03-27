@@ -2,10 +2,10 @@ require('dotenv').config();
 
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { users, refreshTokens, AUTH_PORT } = require('./constants');
 const { generateAccessToken, generateRefreshToken } = require('./utils/generateTokens');
 const { generateHashedPassword } = require('./utils/generateHashedPassword');
+const { verifyRefreshToken } = require('./utils/verifyRefreshToken');
 
 const app = express();
 
@@ -38,16 +38,15 @@ app.post('/token', (req, res) => {
     return res.sendStatus(403);
   }
 
-  jwt.verify(
-    token,
-    process.env.REFRESH_TOKEN_SECRET,
-    (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
+  verifyRefreshToken(token, (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
 
-      const accessToken = generateAccessToken({ name: user.name });
-      res.json(accessToken);
+    // take out only name as the user object will also have additional info
+    // such as subject, creation date, etc.
+    const accessToken = generateAccessToken({ name: user.name });
+    res.json({ accessToken });
   });
 });
 
@@ -60,7 +59,7 @@ app.delete('/logout', async (req, res) => {
 // Authenticate the user
 app.post('/login', async (req, res) => {
   const { name, password } = req.body;
-  
+
   const user = users.find(user => user.name === name);
 
   if (!user) {
