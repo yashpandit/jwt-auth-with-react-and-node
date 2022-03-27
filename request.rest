@@ -20,6 +20,14 @@ Content-Type: application/json
 }
 
 ###
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+  "token": "123"
+}
+
+###
 POST http://localhost:4000/token
 Content-Type: application/json
 

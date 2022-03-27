@@ -26,7 +26,6 @@ app.post('/users', async (req, res) => {
   }
 });
 
-
 // create a new access token once the old one has expired
 app.post('/token', (req, res) => {
   const { token } = req.body;
@@ -50,6 +49,12 @@ app.post('/token', (req, res) => {
       const accessToken = generateAccessToken({ name: user.name });
       res.json(accessToken);
   });
+});
+
+// remove refresh token
+app.delete('/logout', async (req, res) => {
+  refreshTokens.filter(token => token !== req.body.token);
+  res.sendStatus(204);
 });
 
 // Authenticate the user
