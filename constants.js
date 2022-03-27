@@ -1,4 +1,5 @@
 const PORT = 3000;
+const AUTH_PORT = 4000;
 
 const posts = [{
   name: 'Yash',
@@ -13,4 +14,6 @@ const posts = [{
 
 const users = [];
 
-module.exports = { PORT, posts, users };
+const refreshTokens = [];
+
+module.exports = { PORT, AUTH_PORT, posts, users, refreshTokens };
