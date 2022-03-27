@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { users, refreshTokens, AUTH_PORT } = require('./constants');
 const { generateAccessToken, generateRefreshToken } = require('./utils/generateTokens');
 const { generateHashedPassword } = require('./utils/generateHashedPassword');
-const { verifyRefreshToken } = require('./utils/verifyRefreshToken');
+const { verifyToken } = require('./utils/verifyToken');
 
 const app = express();
 
@@ -38,7 +38,10 @@ app.post('/token', (req, res) => {
     return res.sendStatus(403);
   }
 
-  verifyRefreshToken(token, (err, user) => {
+  verifyToken(
+    token,
+    process.env.REFRESH_TOKEN_SECRET,
+    (err, user) => {
     if (err) {
       return res.sendStatus(403);
     }

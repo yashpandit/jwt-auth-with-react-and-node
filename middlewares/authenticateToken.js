@@ -1,9 +1,11 @@
 require('dotenv').config();
 
-const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../utils/verifyToken');
+
+const AUTHORIZATION_HEADER = 'authorization';
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers[AUTHORIZATION_HEADER];
   // the general format of authorization header is
   // BEARER <TOKEN>, so we want to split the header
   // and get the second value to read the token
@@ -13,7 +15,7 @@ const authenticateToken = (req, res, next) => {
     return res.sendStatus(401);
   }
 
-  jwt.verify(
+  verifyToken(
     token,
     process.env.ACCESS_TOKEN_SECRET,
     (err, user) => {
