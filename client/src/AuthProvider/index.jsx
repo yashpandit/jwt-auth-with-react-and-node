@@ -1,11 +1,14 @@
 import { createContext } from "react";
 import useAuthState from "./hooks/useAuthState";
 
-const initialAuthState = {
-  isLoggedIn: false,
-  setIsLoggedIn: () => {},
-  username: '',
-  setUsername: () => {},
+export const initialAuthState = {
+  state: {
+    isLoggedIn: false,
+    username: '',
+    accessToken: '',
+    refreshToken: '',
+  },
+  setState: () => {},
 };
 
 export const AuthContext = createContext(initialAuthState);
