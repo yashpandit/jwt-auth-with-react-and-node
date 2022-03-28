@@ -2,13 +2,13 @@ const PORT = 3000;
 const AUTH_PORT = 4000;
 
 const posts = [{
-  name: 'Yash',
+  name: 'yash',
   title: 'Post1',
 }, {
-  name: 'Anurag',
+  name: 'anurag',
   title: 'Post2',
 }, {
-  name: 'Aditya',
+  name: 'aditya',
   title: 'Post3',
 }];
 
